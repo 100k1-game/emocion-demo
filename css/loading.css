@@ -1,0 +1,77 @@
+#loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  display: grid;
+  place-items: center;
+  background: #ffffff;
+  opacity: 1;
+  transition: opacity 0.85s ease;
+}
+
+#loading-screen.is-leaving {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#loading-screen.is-done {
+  display: none;
+}
+
+.loading-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: min(720px, 92vw);
+  gap: 0.75rem;
+  transition: opacity 0.6s ease, transform 0.85s ease;
+}
+
+#loading-screen.is-leaving .loading-stack {
+  opacity: 0;
+  transform: scale(0.98);
+}
+
+#loading-video {
+  width: 100%;
+  height: auto;
+  max-height: min(72vh, 480px);
+  object-fit: contain;
+  background: #fff;
+}
+
+.loading-bar {
+  width: 100%;
+  height: 4px;
+  border-radius: 4px;
+  background: #e8e8e8;
+  overflow: hidden;
+}
+
+.loading-bar__fill {
+  width: 0%;
+  height: 100%;
+  border-radius: 4px;
+  background: var(--brand, #c04a3a);
+  transition: width 0.12s linear;
+}
+
+body.is-loading {
+  overflow: hidden;
+}
+
+#app {
+  opacity: 0;
+  transition: opacity 0.9s ease;
+}
+
+#app.is-hidden {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+#app.is-ready {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
