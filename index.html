@@ -183,11 +183,11 @@
           <div class="carousel-wrap">
             <div class="swiper swiper-coverflow" id="mediaSwiper">
               <div class="swiper-wrapper">
-                <div class="swiper-slide"><div class="media-card media-card--1"><span class="media-card__play">▶</span><span class="media-card__label">Флешмоб на пляже</span></div></div>
+                <div class="swiper-slide"><button type="button" class="media-card media-card--video" data-video-src="fleshmob.mp4" data-video-title="Флешмобы" aria-label="Смотреть: Флешмобы"><video class="media-card__video" src="fleshmob.mp4" muted loop playsinline preload="metadata" tabindex="-1"></video><span class="media-card__play" aria-hidden="true">▶</span><span class="media-card__label">Флешмобы</span></button></div>
                 <div class="swiper-slide"><div class="media-card media-card--2"><span class="media-card__play">▶</span><span class="media-card__label">Вечернее шоу</span></div></div>
                 <div class="swiper-slide"><div class="media-card media-card--3"><span class="media-card__play">▶</span><span class="media-card__label">Детская анимация</span></div></div>
                 <div class="swiper-slide"><div class="media-card media-card--4"><span class="media-card__play">▶</span><span class="media-card__label">Корпоратив</span></div></div>
-                <div class="swiper-slide"><div class="media-card media-card--1"><span class="media-card__play">▶</span><span class="media-card__label">Флешмоб на пляже</span></div></div>
+                <div class="swiper-slide"><button type="button" class="media-card media-card--video" data-video-src="fleshmob.mp4" data-video-title="Флешмобы" aria-label="Смотреть: Флешмобы"><video class="media-card__video" src="fleshmob.mp4" muted loop playsinline preload="metadata" tabindex="-1"></video><span class="media-card__play" aria-hidden="true">▶</span><span class="media-card__label">Флешмобы</span></button></div>
                 <div class="swiper-slide"><div class="media-card media-card--2"><span class="media-card__play">▶</span><span class="media-card__label">Вечернее шоу</span></div></div>
               </div>
             </div>
@@ -205,7 +205,7 @@
               <div class="swiper-wrapper">
                 <div class="swiper-slide"><div class="partner-card"><div class="partner-card__icon"></div><h3>Курортный комплекс</h3><p>Круглогодичная анимация</p></div></div>
                 <div class="swiper-slide"><div class="partner-card"><div class="partner-card__icon"></div><h3>Семейный отель</h3><p>Детские программы</p></div></div>
-                <div class="swiper-slide"><div class="partner-card"><div class="partner-card__icon"></div><h3>Санаторий</h3><p>Оздоровительный досуг</p></div></div>
+                <div class="swiper-slide"><div class="partner-card partner-card--photo"><div class="partner-card__photo"><img src="duna.png" alt="Санаторий Дюна"/></div><h3>Санаторий «Дюна»</h3><p>Оздоровительный досуг</p></div></div>
                 <div class="swiper-slide"><div class="partner-card"><div class="partner-card__icon"></div><h3>Пансионат</h3><p>Летний сезон</p></div></div>
                 <div class="swiper-slide"><div class="partner-card"><div class="partner-card__icon"></div><h3>SPA-отель</h3><p>Вечерние шоу</p></div></div>
                 <div class="swiper-slide"><div class="partner-card"><div class="partner-card__icon"></div><h3>База отдыха</h3><p>Тематические вечеринки</p></div></div>
@@ -289,6 +289,15 @@
     </footer>
 
     <button type="button" id="scroll-top" class="scroll-top" aria-label="Наверх">↑</button>
+  </div>
+
+  <div id="video-modal" class="video-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="video-modal-title">
+    <div class="video-modal__backdrop" data-close-modal></div>
+    <div class="video-modal__box">
+      <button type="button" class="video-modal__close" aria-label="Закрыть">&times;</button>
+      <p id="video-modal-title" class="video-modal__title"></p>
+      <video id="video-modal-player" class="video-modal__player" controls playsinline preload="metadata"></video>
+    </div>
   </div>
 
   <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
