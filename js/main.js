@@ -52,8 +52,51 @@
     });
   }
 
+  function initVideoModal() {
+    var modal = document.getElementById("video-modal");
+    var player = document.getElementById("video-modal-player");
+    var titleEl = document.getElementById("video-modal-title");
+    if (!modal || !player) return;
+
+    function closeModal() {
+      modal.classList.remove("is-open");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      player.pause();
+      player.removeAttribute("src");
+      player.load();
+    }
+
+    function openModal(src, title) {
+      if (!src) return;
+      if (titleEl) titleEl.textContent = title || "";
+      player.src = src;
+      modal.classList.add("is-open");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      player.play().catch(function () {});
+    }
+
+    document.querySelectorAll(".media-card--video[data-video-src]").forEach(function (card) {
+      card.addEventListener("click", function () {
+        openModal(card.getAttribute("data-video-src"), card.getAttribute("data-video-title"));
+      });
+    });
+
+    modal.querySelectorAll("[data-close-modal], .video-modal__close").forEach(function (el) {
+      el.addEventListener("click", closeModal);
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && modal.classList.contains("is-open")) {
+        closeModal();
+      }
+    });
+  }
+
   /* Swiper coverflow */
   document.addEventListener("DOMContentLoaded", function () {
+    initVideoModal();
     if (typeof Swiper === "undefined") return;
 
     var coverflow = {
@@ -75,9 +118,29 @@
     };
 
     if (document.querySelector("#mediaSwiper")) {
-      new Swiper("#mediaSwiper", Object.assign({}, coverflow, {
+      function syncMediaVideos(swiper) {
+        swiper.slides.forEach(function (slide, index) {
+          var video = slide.querySelector(".media-card__video");
+          if (!video) return;
+          if (index === swiper.activeIndex) {
+            video.play().catch(function () {});
+          } else {
+            video.pause();
+          }
+        });
+      }
+
+      var mediaSwiper = new Swiper("#mediaSwiper", Object.assign({}, coverflow, {
         slidesPerView: "auto",
         spaceBetween: 26,
+        on: {
+          init: function () {
+            syncMediaVideos(this);
+          },
+          slideChangeTransitionEnd: function () {
+            syncMediaVideos(this);
+          },
+        },
       }));
     }
 
