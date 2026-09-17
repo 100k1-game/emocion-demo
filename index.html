@@ -19,11 +19,28 @@
 <body>
 
   <div id="loading-screen" aria-hidden="true">
-    <div class="loading-stack">
-      <video id="loading-video" playsinline preload="auto">
-        <source src="emocion.mp4" type="video/mp4"/>
-      </video>
-      <div class="loading-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Загрузка видео">
+    <div class="splash">
+      <div class="splash__canvas" aria-hidden="true">
+        <div class="splash__pulse splash__pulse--1"></div>
+        <div class="splash__pulse splash__pulse--2"></div>
+        <div class="splash__pulse splash__pulse--3"></div>
+        <div class="splash__float splash__float--1"></div>
+        <div class="splash__float splash__float--2"></div>
+        <div class="splash__float splash__float--3"></div>
+        <div class="splash__float splash__float--4"></div>
+      </div>
+      <div class="splash__stage">
+        <div class="splash__badge" aria-hidden="true">
+          <span class="splash__badge-ring"></span>
+          <span class="splash__badge-dot"></span>
+        </div>
+        <p class="splash__label">Компания</p>
+        <h1 class="splash__title" aria-label="Эмоцион">
+          <span class="splash__title-char">Э</span><span class="splash__title-char">м</span><span class="splash__title-char">о</span><span class="splash__title-char">ц</span><span class="splash__title-char">и</span><span class="splash__title-char">о</span><span class="splash__title-char">н</span>
+        </h1>
+        <p class="splash__tagline">your emotions · our work</p>
+      </div>
+      <div class="loading-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Загрузка">
         <div class="loading-bar__fill" id="loading-bar-fill"></div>
       </div>
     </div>
