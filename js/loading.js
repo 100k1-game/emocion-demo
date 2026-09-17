@@ -1,12 +1,8 @@
 (function () {
   "use strict";
 
-  var VOLUME = 0.55;
-  var FADE_MS = 900;
-
-  function setVideoVolume(video) {
-    video.volume = VOLUME;
-  }
+  var SPLASH_MS = 4200;
+  var FADE_MS = 850;
 
   function revealApp() {
     document.body.classList.remove("is-loading");
@@ -24,11 +20,11 @@
     hero.play().catch(function () {});
   }
 
-  function finish(loader, video) {
-    if (loader.classList.contains("is-leaving")) return;
+  function finish(loader) {
+    if (!loader || loader.classList.contains("is-leaving")) return;
 
-    var fill = document.getElementById("loading-bar-fill");
     var bar = document.querySelector(".loading-bar");
+    var fill = document.getElementById("loading-bar-fill");
     if (fill) fill.style.width = "100%";
     if (bar) bar.setAttribute("aria-valuenow", "100");
 
@@ -37,70 +33,24 @@
 
     window.setTimeout(function () {
       loader.classList.add("is-done");
-      if (video) {
-        video.pause();
-        video.removeAttribute("src");
-        video.load();
-      }
       startHeroVideo();
     }, FADE_MS);
   }
 
-  function updateProgress(video) {
-    var fill = document.getElementById("loading-bar-fill");
-    var bar = document.querySelector(".loading-bar");
-    if (!fill || !video.duration || !isFinite(video.duration)) return;
-    var pct = Math.min(100, (video.currentTime / video.duration) * 100);
-    fill.style.width = pct + "%";
-    if (bar) bar.setAttribute("aria-valuenow", String(Math.round(pct)));
-  }
-
   function init() {
     var loader = document.getElementById("loading-screen");
-    var video = document.getElementById("loading-video");
-    if (!loader || !video) {
+    if (!loader) {
       revealApp();
       startHeroVideo();
       return;
     }
 
     document.body.classList.add("is-loading");
+    document.documentElement.style.setProperty("--splash-duration", SPLASH_MS + "ms");
 
-    video.playsInline = true;
-    video.preload = "auto";
-    setVideoVolume(video);
-    video.muted = false;
-
-    video.addEventListener("playing", function () {
-      setVideoVolume(video);
-    });
-
-    video.addEventListener("timeupdate", function () {
-      updateProgress(video);
-    });
-
-    video.addEventListener("loadedmetadata", function () {
-      updateProgress(video);
-    });
-
-    video.addEventListener("ended", function () {
-      finish(loader, video);
-    }, { once: true });
-
-    video.addEventListener("error", function () {
-      finish(loader, video);
-    }, { once: true });
-
-    video.play().then(function () {
-      setVideoVolume(video);
-      video.muted = false;
-    }).catch(function () {
-      video.muted = true;
-      setVideoVolume(video);
-      video.play().catch(function () {
-        finish(loader, video);
-      });
-    });
+    window.setTimeout(function () {
+      finish(loader);
+    }, SPLASH_MS);
   }
 
   if (document.readyState === "loading") {
