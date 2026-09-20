@@ -44,9 +44,15 @@
   /* Scroll to top */
   var topBtn = document.getElementById("scroll-top");
   if (topBtn) {
-    window.addEventListener("scroll", function () {
-      topBtn.classList.toggle("is-visible", window.scrollY > 500);
-    }, { passive: true });
+    var scrollTopThreshold = 280;
+
+    function updateScrollTopBtn() {
+      topBtn.classList.toggle("is-visible", window.scrollY > scrollTopThreshold);
+    }
+
+    window.addEventListener("scroll", updateScrollTopBtn, { passive: true });
+    updateScrollTopBtn();
+
     topBtn.addEventListener("click", function () {
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
