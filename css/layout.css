@@ -305,26 +305,52 @@
 
 .scroll-top {
   position: fixed;
-  right: 1.25rem;
-  bottom: 1.25rem;
-  z-index: 100;
-  width: 46px;
-  height: 46px;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  z-index: 1001;
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  padding: 0;
   border: none;
   border-radius: 50%;
   background: var(--brand);
   color: #fff;
-  font-size: 1.2rem;
   cursor: pointer;
-  box-shadow: var(--shadow-soft);
+  box-shadow: 0 10px 28px rgba(15, 22, 30, 0.22);
   opacity: 0;
   visibility: hidden;
-  transform: translateY(10px);
-  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s var(--ease);
+  pointer-events: none;
+  transform: translateY(12px);
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s var(--ease), background 0.25s ease;
+}
+
+.scroll-top__icon {
+  display: block;
+}
+
+.scroll-top:hover {
+  background: var(--brand-dark, #1e3640);
+}
+
+.scroll-top:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 3px;
 }
 
 .scroll-top.is-visible {
   opacity: 1;
   visibility: visible;
+  pointer-events: auto;
   transform: none;
+}
+
+@media (max-width: 768px) {
+  .scroll-top {
+    width: 54px;
+    height: 54px;
+    right: max(0.85rem, env(safe-area-inset-right));
+    bottom: max(1.1rem, env(safe-area-inset-bottom));
+  }
 }
