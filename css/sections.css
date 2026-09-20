@@ -244,7 +244,90 @@
   overflow: hidden;
 }
 
+.carousel-wrap--controls {
+  position: relative;
+  padding-inline: clamp(2.5rem, 6vw, 3.5rem);
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  z-index: 5;
+  width: 44px;
+  height: 44px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.96);
+  color: var(--brand);
+  box-shadow: var(--shadow-soft);
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition: background 0.25s ease, transform 0.25s ease, opacity 0.25s ease;
+}
+
+.carousel-btn::before {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  margin: 0 auto;
+  border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+}
+
+.carousel-btn--prev {
+  left: 0;
+}
+
+.carousel-btn--prev::before {
+  transform: translateX(2px) rotate(-135deg);
+}
+
+.carousel-btn--next {
+  right: 0;
+}
+
+.carousel-btn--next::before {
+  transform: translateX(-2px) rotate(45deg);
+}
+
+.carousel-btn:hover {
+  background: #fff;
+  transform: translateY(-50%) scale(1.05);
+}
+
+.carousel-btn.swiper-button-disabled {
+  opacity: 0.35;
+  cursor: default;
+  transform: translateY(-50%);
+}
+
+.carousel-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 0.45rem;
+  margin-top: 1.25rem;
+}
+
+.carousel-pagination .swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
+  margin: 0 !important;
+  border-radius: 999px;
+  background: rgba(42, 74, 88, 0.25);
+  opacity: 1;
+  transition: width 0.25s ease, background 0.25s ease;
+}
+
+.carousel-pagination .swiper-pagination-bullet-active {
+  width: 22px;
+  background: var(--brand);
+}
+
 .swiper-coverflow {
+  position: relative;
   overflow: visible;
   padding: 1rem 0 2rem;
 }
@@ -288,6 +371,12 @@
   background: #000;
   cursor: pointer;
   transition: transform 0.3s var(--ease), box-shadow 0.3s ease;
+}
+
+.media-card--video.media-card--2,
+.media-card--video.media-card--3,
+.media-card--video.media-card--4 {
+  cursor: pointer;
 }
 
 .media-card--video:hover {
@@ -540,5 +629,34 @@
 @media (max-width: 480px) {
   :root {
     --header-offset: 200px;
+  }
+
+  .carousel-wrap--controls {
+    padding-inline: 0;
+  }
+
+  .carousel-btn {
+    width: 38px;
+    height: 38px;
+    top: auto;
+    bottom: 0.35rem;
+    transform: none;
+    background: rgba(255, 255, 255, 0.92);
+  }
+
+  .carousel-btn--prev {
+    left: 0.25rem;
+  }
+
+  .carousel-btn--next {
+    right: 0.25rem;
+  }
+
+  .carousel-btn:hover {
+    transform: none;
+  }
+
+  .carousel-btn.swiper-button-disabled {
+    transform: none;
   }
 }
